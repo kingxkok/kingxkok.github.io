@@ -3,8 +3,8 @@ Granular Permissions API
 ===
 
 ### The Problem
-It's hard to parse granular permissions.
-Let's have the Permissions endpoint take in a tool as param and return permissions specific to that tool.
+It's hard to parse granular permissions for a tool as the API filters only by user.
+Let's have the Permissions endpoint take in a tool as param and return permissions specific to that tool. We can also allow a mroe granular checking of permissions, as in by module, e.g. permission for Locations (can we create on the fly?).
 
 ### Why this is a Problem & Existing Solution
 Current API: https://developers.procore.com/reference/permissions
@@ -59,7 +59,7 @@ We should send a simple JSON response with all the permissions of a user given i
 
 Sample request:
 
-```GET /apiv3/settings/permissions?tool_name=daily_log```
+```GET /apiv3/settings/permissions?project_id=420814&tool_name=daily_log```
 
 Sample response:
 ```
@@ -71,14 +71,29 @@ Sample response:
 }
 ```
 
-```GET /apiv3/settings/permissions?module_name=location_picker```
+```GET /apiv3/settings/permissions?project_id=619042&module_name=location_picker```
 
 Sample response:
 ```
 {
   "permissions": {
-    "canCreate" : "false"
+    "canCreate" : "true",
+    "canCreateOnTheFly" : "false"
   }
+}
+```
+
+Thus, the client code can be as simple as (pseudocode): 
+```
+let path = "/vapid/settings/permissions"
+let query = ["project_id": projectId, "tool_name": "daily_log"]
+PROHttp.get(path, query: query) { result in
+   if(result == .failure) return
+   let helper = try Json.helper(from: result)
+   if(helper.forKey("collaborator")=="true")
+      completion(true)
+   else 
+      completion(false)
 }
 ```
 
