@@ -71,6 +71,8 @@ Sample response:
 }
 ```
 
+
+Sample request:
 ```GET /apiv3/settings/permissions?project_id=619042&module_name=location_picker```
 
 Sample response:
