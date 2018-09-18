@@ -57,9 +57,7 @@ We use this, for example, when in the view controller, we want to decide which l
 
 We should send a simple JSON response with all the permissions of a user given its ID and the tool, or the module.
 
-Sample request:
-
-```GET /apiv3/settings/permissions?project_id=420814&tool_name=daily_log```
+Sample request: ```GET /apiv3/settings/permissions?project_id=420814&tool_name=daily_log```
 
 Sample response:
 ```
@@ -72,8 +70,7 @@ Sample response:
 ```
 
 
-Sample request:
-```GET /apiv3/settings/permissions?project_id=619042&module_name=location_picker```
+Sample request: ```GET /apiv3/settings/permissions?project_id=619042&module_name=location_picker```
 
 Sample response:
 ```
