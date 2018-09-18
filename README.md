@@ -1,5 +1,5 @@
 
-Params Validation
+Granular Permissions API
 ===
 
 ### The Problem
